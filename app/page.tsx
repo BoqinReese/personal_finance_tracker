@@ -3,6 +3,7 @@ import { getMonthlyData, calculateTotals } from '@/lib/finance';
 import { DashboardSummary } from '@/components/DashboardSummary';
 import { TransactionList } from '@/components/TransactionList';
 import { MonthSelector } from '@/components/MonthSelector';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Link from 'next/link';
@@ -33,7 +34,8 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Finance Tracker</h1>
           <p className="text-zinc-500 dark:text-zinc-400">Welcome back, Juma Enock</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          <ThemeToggle />
           <Link href="/recurring">
             <Button variant="secondary">Manage Recurring</Button>
           </Link>
