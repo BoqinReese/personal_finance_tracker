@@ -8,12 +8,21 @@ export const MonthSelector = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  const currentMonth = searchParams.get('month') || new Date().toISOString().slice(0, 7);
+  const getLocalYearMonth = () => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = (now.getMonth() + 1).toString().padStart(2, '0');
+    return `${y}-${m}`;
+  };
+
+  const currentMonth = searchParams.get('month') || getLocalYearMonth();
   const [year, month] = currentMonth.split('-').map(Number);
 
   const changeMonth = (offset: number) => {
     const date = new Date(year, month - 1 + offset, 1);
-    const newMonth = date.toISOString().slice(0, 7);
+    const y = date.getFullYear();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const newMonth = `${y}-${m}`;
     router.push(`/?month=${newMonth}`);
   };
 
@@ -39,7 +48,7 @@ export const MonthSelector = () => {
       <Button 
         variant="ghost" 
         size="sm" 
-        onClick={() => router.push(`/?month=${new Date().toISOString().slice(0, 7)}`)}
+        onClick={() => router.push(`/?month=${getLocalYearMonth()}`)}
       >
         Today
       </Button>

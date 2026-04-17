@@ -29,13 +29,28 @@ export const TransactionForm = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  const getLocalToday = () => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = (now.getMonth() + 1).toString().padStart(2, '0');
+    const d = now.getDate().toString().padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  const getLocalYearMonth = () => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = (now.getMonth() + 1).toString().padStart(2, '0');
+    return `${y}-${m}`;
+  };
+
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       type: 'expense',
       entryMode: 'one_time',
-      date: new Date().toISOString().split('T')[0],
-      startMonth: new Date().toISOString().slice(0, 7),
+      date: getLocalToday(),
+      startMonth: getLocalYearMonth(),
     }
   });
 

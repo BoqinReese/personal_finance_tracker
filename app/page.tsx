@@ -13,7 +13,15 @@ interface PageProps {
 
 export default async function DashboardPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const currentMonth = params.month || new Date().toISOString().slice(0, 7);
+  
+  const getLocalYearMonth = () => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = (now.getMonth() + 1).toString().padStart(2, '0');
+    return `${y}-${m}`;
+  };
+
+  const currentMonth = params.month || getLocalYearMonth();
   
   const transactions = await getMonthlyData(currentMonth);
   const totals = calculateTotals(transactions);
